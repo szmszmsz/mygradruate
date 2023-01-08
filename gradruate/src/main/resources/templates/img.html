@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+
+    <title>Title</title>
+</head>
+<body>
+<form action="../upload" method="post" enctype="multipart/form-data">
+    <input id="imgg" type="file" name="file" accept="image/*">
+    <br>
+    <input type="text" value="">
+    <input type="submit" value="上传" class="btn btn-success">
+</form>
+[[${filename}]]
+<br>
+<img th:src="@{${filename}}" style="width: 300px;height: 200px;" alt="图片">
+<script>
+    $(document).ready(
+        function() {
+        $('#immg').change(function () {
+           alert(change)
+        });
+
+        })
+</script>
+</body>
+</html>

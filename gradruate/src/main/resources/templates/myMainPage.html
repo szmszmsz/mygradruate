@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <title>我的主页</title>
+</head>
+<body>
+<div class="container">
+    <div class="row  ">
+        <div class="col-md-12">
+            <nav class="navbar navbar-default "style=" margin-top: 20px;">
+                <div class="container-fluid">
+
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="../file/mainPage">首页 </a></li>
+                            <li><a href="#">图书信息</a></li>
+                            <li><a href="#">图书论坛</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#">Link</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">我的信息 <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <div style="background-color: greenyellow;height: 800px;" class="col-md-2">
+            <ul class="nav nav-pills  nav-stacked  ">
+                <li role="presentation" class="active"><a href="#">Home</a></li>
+                <li role="presentation"><a href="#">Profile</a></li>
+                <li role="presentation"><a href="#">Messages</a></li>
+            </ul>
+        </div>
+        <div style="background-color: pink;height: 800px;" class="col-md-10">
+            <div class="col-md-12" style="background-color: blue;height: 50px;width: 100%;">
+
+            </div>
+            <div class="col-md-12" style="background-color: yellow;height: 750px;width: 100%;">
+                <table class="table table-condensed" style="width: 200px;">
+                    <tr>
+                        <td>
+                            <form enctype="multipart/form-data" id="node-form">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">书名</label>
+
+                                    <input type="text" class=" form-control " id="bookName" name="bookname">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">作者</label>
+
+                                    <input type="text" class=" form-control " id="exampleInputEmail1" name="autor">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">出版社</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" name="press">
+                                </div>
+                                <div class="form-group">
+                                    <label>图书类型</label>
+                                    <select name="genre" class="form-control">
+                                        <option>请选择</option>
+                                        <option value="文学">文学</option>
+                                        <option value="动画">动画</option>
+                                        <option value="青春">青春</option>
+                                        <option value="小说">小说</option>
+                                        <option value="旅游">旅游</option>
+                                        <option value="艺术">艺术</option>
+                                        <option value="其他">其他</option>
+                                        <option value="旅游">旅游</option>
+                                        <option value="动画幽默">动画幽默</option>
+                                        <option value="娱乐时尚">娱乐时尚</option>
+                                        <option value="地图地理">地图地理</option>
+                                    </select>
+
+                                </div>
+                                <div>
+                                    <input id="imgg" type="file" value="请选择图片" name="fileName" accept="image/*">
+                                    <br>
+                                    <label>图书介绍</label>
+                                    <br>
+
+
+                                </div>
+                                <div>
+                                    <textarea name="description"></textarea>
+                                </div>
+
+                                <input name="uid" type="house" id="loggedUserId"
+                                       th:each="cookie :${#httpServletRequest.getCookies()}"
+                                       th:if="${cookie.getName().equals('uid')}"
+                                       th:value="${cookie.getValue()}">
+
+                                <br>
+
+                                <button type="button" value="上传" id="add_node" class="btn btn-success"></button>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(
+        function () {
+            $("#add_node").click(function () {
+                $.ajax({
+                    // async : true,
+                    cache: false,
+                    type: 'POST',
+                    url: '../file/up/',
+                    contentType: false,
+                    processData: false,
+                    // dataType: 'json',
+                    // data:$("#node-form").serialize(),
+                    data: new FormData($("#node-form")[0]),
+                    success: function (res) {
+                        // 弹窗内容， 样式
+                        if (res == 1) {
+                            alert("成功")
+                        } else {
+                            alert("上传失败")
+                        }
+                        // window.location.reload();
+                    },
+                    error: function (response) {
+                        alert("失败")
+                    }
+                })
+            })
+
+        })
+
+</script>
+
+
+</body>
+</html>

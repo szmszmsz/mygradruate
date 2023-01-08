@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <style>
+        img {
+            margin: 0px;
+        }
+    </style>
+
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" style="height: 250px;">
+            <nav class="navbar navbar-default " style="  margin-top: 20px;">
+                <div class="container-fluid">
+
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="../file/mainPage">首页 </a></li>
+                            <li><a href="#">图书信息</a></li>
+                            <li><a href="#">图书论坛</a></li>
+                        </ul>
+                        <!-- //搜索 -->
+                        <form class="navbar-form navbar-left">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search">
+                            </div>
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </form>
+
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#">Link</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">我的信息 <span
+                                        class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="../file/jump">上传图书</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+
+
+        </div>
+    </div>
+
+
+    <!-- 中 -->
+    <div class="row">
+        <div class="col-md-12" style="height: 800px;">
+            <nav class="navbar navbar-default ">
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="#">青春 </a></li>
+                            <li><a href="#">小说</a></li>
+                            <li><a href="#">文学</a></li>
+                            <li><a href="#">艺术</a></li>
+                            <li><a href="#">动漫幽默</a></li>
+                            <li><a href="#">娱乐时尚</a></li>
+                            <li><a href="#">旅游</a></li>
+                            <li><a href="#">地图地理</a></li>
+                            <li><a href="#">其他</a></li>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+
+            <!-- 缩略图 -->
+            <div class="row clearfix">
+                <div class="col-md-12 column">
+                    <div class="row">
+                        <div class="col-md-3" th:each="b:${session.bookmeg}">
+                            <div class="thumbnail">
+                                <div data-trigger="hover"
+                                     data-container="body" data-toggle="popover" data-placement="right"
+                                    th:data-content="${b.getDescription()}" style="float: left;">
+                                    <img alt="300x200" th:src="${b.getFileName()}" style="width: 130px;height: 150px;margin-left: 0px;margin-right: 0px;"/>
+                                </div>
+                                <div style="width: 120px;height: 150px;float: right;">
+                                    书名：<span th:text="${b.getBookname()}"></span><br/>
+                                    作者：<span th:text="${b.getAutor()}"></span><br/>
+                                    类型：<span th:text="${b.getGenre()}"></span>
+                                    出版社：<span th:text="${b.getPress()}"></span>
+                                </div>
+
+                                <div class="caption">
+                                    <h3>
+                                        Thumbnail label
+                                    </h3>
+                                    <p>
+                                    </p>
+                                    <p>
+                                        <a class="btn btn-primary" href="#">Action</a> <a class="btn"
+                                                                                          href="#">Action</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+    <div>
+
+
+        <!-- 滑动 -->
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-md-12 column">
+                    <div class="carousel slide" id="carousel-961533">
+                        <ol class="carousel-indicators">
+                            <li data-slide-to="0" data-target="#carousel-961533">
+                            </li>
+                            <li data-slide-to="1" data-target="#carousel-961533" class="active">
+                            </li>
+                            <li data-slide-to="2" data-target="#carousel-961533">
+                            </li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="item">
+                                <img alt="" src="/images/bg1.jpg"/>
+                                <div class="carousel-caption">
+                                    <h4>
+                                        First Thumbnail label
+                                    </h4>
+                                    <p>
+                                        Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non
+                                        mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id
+                                        elit.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="item active">
+                                <img alt="" src="./images/bg1.jpg"/>
+                                <div class="carousel-caption">
+                                    <h4>
+                                        Second Thumbnail label
+                                    </h4>
+                                    <p>
+                                        Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non
+                                        mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id
+                                        elit.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img alt="" src="./images/bg1.jpg"/>
+                                <div class="carousel-caption">
+                                    <h4>
+                                        Third Thumbnail label
+                                    </h4>
+                                    <p>
+                                        Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non
+                                        mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id
+                                        elit.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="left carousel-control" href="#carousel-961533" data-slide="prev"><span
+                                class="glyphicon glyphicon-chevron-left"></span></a> <a class="right carousel-control"
+                                                                                        href="#carousel-961533"
+                                                                                        data-slide="next"><span
+                            class="glyphicon glyphicon-chevron-right"></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(function () {
+                $("[data-toggle='popover']").popover();
+            });
+        </script>
+
+        <input type="house" id="loggedUserId" th:each="cookie :${#httpServletRequest.getCookies()}"
+               th:if="${cookie.getName().equals('uid')}"
+               th:value="${cookie.getValue()}">
+
+</body>
+</html>

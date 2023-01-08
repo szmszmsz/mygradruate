@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.gradruate.mapper.BookmegMapper">
+
+    <select id="selectHotBook" resultType="com.example.gradruate.entity.Bookmeg" >
+       select bmg.bid,bmg.uid,bmg.autor,bmg.press,bmg.genre,bmg.description,bmg.bookname,bmg.createTime,bmg.cover,bmg.name from bookmeg as bmg
+       order by bmg.createTime desc limit 0,8
+    </select>
+    <select id="selectHotBook" resultType="com.example.gradruate.entity.Bookmeg" >
+       select * from comment where   pid=#{cid} ORDER BY createTime desc
+    </select>
+
+
+
+    <select id="queryBook" parameterType="String" resultType="com.example.gradruate.entity.Bookmeg">
+        select bmg.bid,bmg.uid,bmg.autor,bmg.press,bmg.genre,bmg.description,bmg.bookname,bmg.createTime,bmg.cover,bmg.name from bookmeg as bmg
+        <where>
+            <if test="bookmegs!=null and bookmegs!='' ">
+                1=1
+                and  bmg.name like concat(concat('%',#{bookmegs}),'%')
+                or  bmg.autor like concat(concat('%',#{bookmegs}),'%')
+                or  bmg.press like concat(concat('%',#{bookmegs}),'%')
+                or  bmg.genre like concat(concat('%',#{bookmegs}),'%')
+            </if>
+        </where>
+    </select>
+</mapper>

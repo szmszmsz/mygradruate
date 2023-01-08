@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.gradruate.mapper.ContactstableMapper">
+        <select id="queryDialog" resultType="com.example.gradruate.mapper.ContactstableMapper">
+            select userID,OtherUserID,dialogID,contactsId from contactstable
+             where userID=#{uid} and  OtherUserID=#{otherUid}
+        </select>
+
+    <select id="getOneContact" resultType="com.example.gradruate.entity.Contactstable">
+            select userID,OtherUserID,dialogID,contactsId from contactstable
+             where
+             userID=#{uid} and OtherUserID=#{otherUid}
+              or
+             userID=#{otherUid} and OtherUserID=#{uid}
+        </select>
+</mapper>
