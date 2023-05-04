@@ -31,7 +31,6 @@ public class WxApiController {
     @Autowired
     private UcenterMemberService memberService;
     String jwtToken;
-
     @GetMapping("callback")
     public String callback(String code, String state, HttpServletResponse response){
        try {

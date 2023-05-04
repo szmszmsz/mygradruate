@@ -6,14 +6,13 @@
        select bmg.bid,bmg.uid,bmg.autor,bmg.press,bmg.genre,bmg.description,bmg.bookname,bmg.createTime,bmg.cover,bmg.name from bookmeg as bmg
        order by bmg.createTime desc limit 0,8
     </select>
-    <select id="selectHotBook" resultType="com.example.gradruate.entity.Bookmeg" >
-       select * from comment where   pid=#{cid} ORDER BY createTime desc
-    </select>
+
 
 
 
     <select id="queryBook" parameterType="String" resultType="com.example.gradruate.entity.Bookmeg">
-        select bmg.bid,bmg.uid,bmg.autor,bmg.press,bmg.genre,bmg.description,bmg.bookname,bmg.createTime,bmg.cover,bmg.name from bookmeg as bmg
+        select bmg.bid,bmg.uid,bmg.autor,bmg.press,bmg.genre,bmg.description,
+        bmg.bookname,bmg.createTime,bmg.cover,bmg.name from bookmeg as bmg
         <where>
             <if test="bookmegs!=null and bookmegs!='' ">
                 1=1
@@ -21,6 +20,35 @@
                 or  bmg.autor like concat(concat('%',#{bookmegs}),'%')
                 or  bmg.press like concat(concat('%',#{bookmegs}),'%')
                 or  bmg.genre like concat(concat('%',#{bookmegs}),'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="getBookType" resultType="com.example.gradruate.entity.vo.BookTypeProportion" >
+        select count(genre) as value,genre as name from bookmeg GROUP BY genre
+    </select>
+    <select id="getBookTypes" resultType="com.example.gradruate.entity.vo.BookTypes" >
+        select genre as name from bookmeg
+    </select>
+
+    <select id="getUserName" resultType="String" >
+        select u.nickname
+        from bookmeg  as b INNER JOIN ucenter_member as u on b.uid=u.id
+    </select>
+
+    <select id="selectMultBook" resultType="com.example.gradruate.entity.Bookmegs">
+        select bmg.bid,bmg.uid,bmg.autor,bmg.press,bmg.genre,bmg.description,
+        bmg.bookname,bmg.createTime,bmg.cover,bmg.name ,um.nickname from bookmeg as bmg
+        inner join ucenter_member as um on bmg.uid=um.id
+        <where>
+            <if test="bookmegs!=null and bookmegs!='' ">
+                1=1
+                and  bmg.name like concat(concat('%',#{bookmegs}),'%')
+                or  bmg.autor like concat(concat('%',#{bookmegs}),'%')
+                or  bmg.press like concat(concat('%',#{bookmegs}),'%')
+                or  bmg.genre like concat(concat('%',#{bookmegs}),'%')
+                or  bmg.createTime like concat(concat('%',#{bookmegs}),'%')
+                or  um.nickname like concat(concat('%',#{bookmegs}),'%')
             </if>
         </where>
     </select>

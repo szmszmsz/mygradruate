@@ -56,9 +56,9 @@ public class RandomUtil {
 		// 遍历数组并打印数据
 		for (int i = 0; i < n; i++) {
 			r.add(list.get((int) robjs[i]));
-			System.out.print(list.get((int) robjs[i]) + "\t");
+
 		}
-		System.out.print("\n");
+
 		return r;
 	}
 }

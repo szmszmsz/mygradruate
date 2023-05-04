@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.gradruate.mapper.RotationchartMapper">
+    <insert id="insertRotationchart">
+        insert into rotation_chart(url,fileName) values (#{url},#{fileName});
+    </insert>
+
+    <select id="qureyAllPicture" resultType="com.example.gradruate.entity.Rotationchart" >
+        select * from rotation_chart
+    </select>
+
+    <delete id="del" parameterType="String" >
+        delete from rotation_chart where fileName=#{pictrueName}
+    </delete>
+
+</mapper>
+

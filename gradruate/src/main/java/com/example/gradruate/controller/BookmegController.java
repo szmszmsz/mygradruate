@@ -8,8 +8,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.gradruate.commonutils.CommonPage;
 import com.example.gradruate.commonutils.R;
 import com.example.gradruate.entity.Bookmeg;
+import com.example.gradruate.entity.Bookmegs;
 import com.example.gradruate.entity.Com;
 import com.example.gradruate.entity.UcenterMember;
+import com.example.gradruate.entity.vo.BookTypeProportion;
+import com.example.gradruate.entity.vo.BookTypes;
 import com.example.gradruate.service.BookmegService;
 import com.example.gradruate.service.UcenterMemberService;
 import com.example.gradruate.service.impl.UcenterMemberServiceImpl;
@@ -40,6 +43,22 @@ public class BookmegController {
 
     @Autowired
     UcenterMemberServiceImpl ucenterMemberService;
+
+    @GetMapping("/selectMultBook/{bookmegs}")
+    public  R selectMultBook(@PathVariable("bookmegs") String bookmegs){
+        List<Bookmegs> bookmegs1 = bookmegService.selectMultBook(bookmegs);
+
+        for (Bookmegs b:bookmegs1
+             ) {
+            UcenterMember ucenterMember = new UcenterMember();
+            ucenterMember.setNickname(b.getNickname());
+            b.setUcenterMember(ucenterMember);
+        }
+
+        return R.ok().data("bookmegs",bookmegs1);
+    }
+
+
 //添加图书
     @PostMapping("/add")
     public  R addBook(@RequestBody Bookmeg bookmeg, HttpServletRequest request){
@@ -111,14 +130,17 @@ public class BookmegController {
     //查询所有图书不分页（首页的）
     @GetMapping("/indexPage")
     public R selectIndexBook(HttpServletRequest request){
-        List<Bookmeg> list = bookmegService.list();
-        for (Bookmeg b:list
-             ) {
+        QueryWrapper<Bookmeg> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("createTime");
+//        List<Bookmeg> list = bookmegService.list();
+        List<Bookmeg> list = bookmegService.list(wrapper);
+        for (Bookmeg b:list) {
             QueryWrapper<UcenterMember> ucenterMemberQueryWrapper = new QueryWrapper<>();
             ucenterMemberQueryWrapper.eq("id",b.getUid());
             UcenterMember one = ucenterMemberService.getOne(ucenterMemberQueryWrapper);
             b.setUcenterMember(one);
         }
+
         return R.ok().data("records", list).data("meg",list.size());
     }
 
@@ -136,7 +158,7 @@ public class BookmegController {
             bookmeg.setUcenterMember(one);
 
         }
-        
+
         return R.ok().data("records", list).data("meg",list.size());
     }
     @GetMapping("/query/{bookmeg}")
@@ -153,6 +175,22 @@ public class BookmegController {
         boolean remove = bookmegService.remove(bookmegQueryWrapper);
         return R.ok().data("remove","删除成功");
     }
+    //图书类型比例
+    @GetMapping("/booktype")
+    public R getBookType(){
+        List<BookTypeProportion> list = bookmegService.getBookType();
+        BookTypeProportion[] lists=list.toArray(new BookTypeProportion[list.size()]);
+        return R.ok().data("list",lists);
+    }
+    @GetMapping("/booktypes")
+    public R getBookTypes(){
+//        List<BookTypes> list = bookmegService.getBookTypes();
+        List<Bookmeg> list = bookmegService.list();
+        List<String>name=bookmegService.getUserName();
+//        BookTypeProportion[] lists=list.toArray(new BookTypeProportion[list.size()]);
+        return R.ok().data("list",list).data("name",name);
+    }
+
 
 }
 

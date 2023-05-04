@@ -12,4 +12,12 @@
         </if>
     </where>
 </select>
+    <select id="getMemById" parameterType="String" resultType="com.example.gradruate.entity.UcenterMember">
+        select * from ucenter_member where id=#{id}
+    </select>
+
+    <update id="updateMegById" parameterType="com.example.gradruate.entity.UcenterMember">
+        update ucenter_member set nickName=#{ucenterMember.nickname},avatar=#{ucenterMember.avatar}
+        where id=#{ucenterMember.id}
+    </update>
 </mapper>

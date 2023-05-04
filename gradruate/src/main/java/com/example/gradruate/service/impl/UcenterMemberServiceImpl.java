@@ -71,4 +71,23 @@ public class UcenterMemberServiceImpl extends ServiceImpl<UcenterMemberMapper, U
 
         return ucenterMemberMapper.queryParams(params);
     }
+
+    @Override
+    public void register(UcenterMember ucenterMember) {
+        String password = ucenterMember.getPassword();
+        String encrypt = MD5.encrypt(password);
+        ucenterMember.setPassword(encrypt);
+        ucenterMember.setIsDisabled(false);
+        ucenterMemberMapper.insert(ucenterMember);
+    }
+
+    @Override
+    public UcenterMember getMemById(String id) {
+        return ucenterMemberMapper.getMemById(id);
+    }
+
+    @Override
+    public int updateMegById(UcenterMember ucenterMember) {
+        return ucenterMemberMapper.updateMegById(ucenterMember);
+    }
 }

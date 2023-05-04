@@ -19,4 +19,8 @@ import java.util.List;
 public interface UcenterMemberMapper extends BaseMapper<UcenterMember> {
 
     List<UcenterMember> queryParams(@Param("params") String params);
+
+    UcenterMember getMemById(@Param("id")String id);
+
+    int updateMegById(@Param("ucenterMember")UcenterMember ucenterMember);
 }

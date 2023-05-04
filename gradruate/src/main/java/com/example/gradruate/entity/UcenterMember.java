@@ -59,6 +59,8 @@ public class UcenterMember implements Serializable {
     @ApiModelProperty(value = "用户签名")
     private String sign;
 
+
+
     @ApiModelProperty(value = "是否禁用 1（true）已禁用，  0（false）未禁用")
     private Boolean isDisabled;
 
@@ -75,6 +77,7 @@ public class UcenterMember implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date gmtModified;
 
+
     @Override
     public String toString() {
         return "UcenterMember{" +
@@ -87,9 +90,10 @@ public class UcenterMember implements Serializable {
                 ", age=" + age +
                 ", avatar='" + avatar + '\'' +
                 ", sign='" + sign + '\'' +
+
                 ", isDisabled=" + isDisabled +
                 ", isDeleted=" + isDeleted +
-                ", gmtCreate=" + gmtCreate +
+                ", gmtCreate='" + gmtCreate + '\'' +
                 ", gmtModified=" + gmtModified +
                 '}';
     }

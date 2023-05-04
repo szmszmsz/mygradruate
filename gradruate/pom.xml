@@ -71,6 +71,12 @@
             <artifactId>velocity-engine-core</artifactId>
         </dependency>
 
+        <!--websocket-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+
 
 
 <!--        &lt;!&ndash;Spring Cloud&ndash;&gt;-->

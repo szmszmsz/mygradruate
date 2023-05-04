@@ -41,7 +41,7 @@ public class ContactstableController {
     /**查询登陆者的所有对话框*/
     @GetMapping("/queryDialog")
     public R queryDialog(HttpServletRequest request){
-        System.out.println("######");
+
         List<Contactstable> dialogid=contactstableService.queryAllDialog(request);
 
         return R.ok().data("dialogids",dialogid);

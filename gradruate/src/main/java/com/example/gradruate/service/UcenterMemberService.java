@@ -21,4 +21,10 @@ public interface UcenterMemberService extends IService<UcenterMember> {
     String login(UcenterMember member);
 
     List<UcenterMember> queryParams(@Param("params") String params);
+
+    void register(UcenterMember ucenterMember);
+
+    UcenterMember getMemById(String id);
+
+    int updateMegById(UcenterMember ucenterMember);
 }

@@ -24,7 +24,7 @@ public class OssController {
     public R uploadOssFile(MultipartFile file) {
         //获取上传文件  MultipartFile
         //返回上传到oss的路径
-
+//        System.out.println("上传封面");
         Map<String, String> map = ossService.uploadFileAvatar(file);
 
         return R.ok().data("url", map.get("url")).data("fileName",map.get("fileName"));

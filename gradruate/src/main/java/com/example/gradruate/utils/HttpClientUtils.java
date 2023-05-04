@@ -328,7 +328,7 @@ public class HttpClientUtils {
             map.put("name", "111");
             map.put("page", "222");
             String str= postForm("https://localhost:443/ssl/test.shtml",map,null, 10000, 10000);*/
-			System.out.println(str);
+
 		} catch (ConnectTimeoutException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

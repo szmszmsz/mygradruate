@@ -13,7 +13,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author szm
@@ -23,11 +23,11 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @ApiModel(value="Bookmeg对象", description="")
-public class Bookmeg implements Serializable {
+public class Bookmegs implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    
+
     @ApiModelProperty(value = "书本id")
     @TableId(value = "bid", type = IdType.ID_WORKER)
     private String bid;
@@ -59,15 +59,25 @@ public class Bookmeg implements Serializable {
     @ApiModelProperty(value = "书名")
     private String name;
 
+    private String nickname;
 
 
-//用户信息
-@TableField(exist = false)
-   private UcenterMember ucenterMember;
+
+    //用户信息
+    @TableField(exist = false)
+    private UcenterMember ucenterMember;
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
     @Override
     public String toString() {
-        return "Bookmeg{" +
+        return "Bookmegs{" +
                 "bid='" + bid + '\'' +
                 ", uid='" + uid + '\'' +
                 ", autor='" + autor + '\'' +
@@ -78,16 +88,16 @@ public class Bookmeg implements Serializable {
                 ", createTime='" + createTime + '\'' +
                 ", cover='" + cover + '\'' +
                 ", name='" + name + '\'' +
-
+                ", nickname='" + nickname + '\'' +
                 ", ucenterMember=" + ucenterMember +
                 '}';
     }
 
-    public Bookmeg() {
+    public Bookmegs() {
     }
 
 
-    public Bookmeg(String bid, String uid, String autor, String press, String genre, String description, String bookname, String createTime, String cover, String name, UcenterMember ucenterMember) {
+    public Bookmegs(String bid, String uid, String autor, String press, String genre, String description, String bookname, String createTime, String cover, String name, UcenterMember ucenterMember) {
         this.bid = bid;
         this.uid = uid;
         this.autor = autor;

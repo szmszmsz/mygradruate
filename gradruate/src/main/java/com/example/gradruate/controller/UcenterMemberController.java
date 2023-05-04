@@ -1,9 +1,9 @@
 package com.example.gradruate.controller;
 
 
-import cn.hutool.json.JSON;
-import cn.hutool.json.JSONParser;
+
 import cn.hutool.json.JSONUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.gradruate.commonutils.R;
 import com.example.gradruate.entity.UcenterMember;
 import com.example.gradruate.mapper.UcenterMemberMapper;
@@ -44,12 +44,21 @@ public class UcenterMemberController {
         String token=memberService.login(member);
         return R.ok().data("token",token);
     }
-//
-//    @PostMapping("register")
-//    public R registerUser(@RequestBody RegisterVo registerVo){
-//        memberService.register(registerVo);
-//        return R.ok();
-//    }
+
+
+
+    @PostMapping("register")
+    public R registerUser(@RequestBody UcenterMember ucenterMember){
+        QueryWrapper<UcenterMember> wrapper = new QueryWrapper<>();
+        QueryWrapper<UcenterMember> mobile = wrapper.eq("mobile", ucenterMember.getMobile());
+        UcenterMember one = memberService.getOne(mobile);
+        if (one==null){
+            memberService.register(ucenterMember);
+            return R.ok().data("meg","ok");
+        }
+
+        return R.ok().data("meg","no");
+    }
 
 
     @GetMapping("getMemberInfo")
@@ -71,6 +80,7 @@ public class UcenterMemberController {
     @GetMapping("/getAllMembers")
     public R getAllMembers(){
         List<UcenterMember> list = memberService.list();
+   
         return R.ok().data("members",list);
     }
 
@@ -79,20 +89,32 @@ public class UcenterMemberController {
      * */
     @GetMapping("/queryParams/{params}")
     public R queryParams(@PathVariable("params") String params){
-        System.out.println(params);
+
         List<UcenterMember> list=ucenterMemberMapper.queryParams(params);
         return R.ok().data("members",list);
     }
 
 
-//    //根据用户id 获取用户信息
-//    @PostMapping("getUserInfoOrder/{id}")
-//    public UcenterMemberOrder getUserInfoOrder(@PathVariable String id){
-//        UcenterMember member = memberService.getById(id);
+    //根据用户id 获取用户信息
+    @GetMapping("getUserInfoOrder/{id}")
+    public R getUserInfoOrder(@PathVariable String id){
+        UcenterMember member = memberService.getMemById(id);
+
 //        UcenterMemberOrder ucenterMemberOrder = new UcenterMemberOrder();
 //        BeanUtils.copyProperties(member,ucenterMemberOrder);//将member对象里的内容复制到ucenterMemberOrder对象里
-//        return ucenterMemberOrder;
-//    }
+        return R.ok().data("member",member);
+    }
+
+    //根据用户id 获取用户信息
+    @PostMapping("/updataMeg")
+    public R updataMeg(@RequestBody UcenterMember ucenterMember){
+
+        memberService.updateMegById(ucenterMember);
+
+//        UcenterMemberOrder ucenterMemberOrder = new UcenterMemberOrder();
+//        BeanUtils.copyProperties(member,ucenterMemberOrder);//将member对象里的内容复制到ucenterMemberOrder对象里
+        return R.ok().data("member","ok");
+    }
 //    //查询某一天注册人数
 //    @GetMapping("countRegister/{day}")
 //    public R countRegister(@PathVariable String day){

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.gradruate.mapper.ReadMegMapper">
+<insert id="insertReadMeg" parameterType="com.example.gradruate.entity.ReadMeg">
+    insert into read_meg(create_time,uid,meg,is_back_meg) values(#{readMeg.createTime},#{readMeg.uid},#{readMeg.meg},#{readMeg.isBackMeg})
+</insert>
+    <update id="updateReadMeg" parameterType="String">
+        update read_meg set is_read="1" where uid=#{uid}
+    </update>
+    <select id="queryReadMeg" resultType="com.example.gradruate.entity.ReadMeg">
+        select * from read_meg where uid=#{uid} and  is_back_meg="0" order by create_time desc
+    </select>
+    <select id="queryUnReadNum" resultType="int">
+        select count(*) from read_meg where is_read=0 and uid=#{uid} and is_back_meg ="0"
+    </select>
+
+    <select id="queryBackReadMeg" resultType="com.example.gradruate.entity.ReadMeg">
+        select rm.create_time,rm.uid,rm.meg,rm.is_back_meg,um.nickname
+        from read_meg as rm
+        inner join ucenter_member as um on rm.uid=um.id
+        where rm.is_back_meg="1"
+        order by rm.create_time desc
+    </select>
+</mapper>
